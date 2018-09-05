@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import * as firebase from 'firebase';
+import RoomList from './components/RoomList';
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCIVXmizP2hg5WlqNaPSLU5Sxi2oz3Lmu8",
+    authDomain: "bloc-chat-7821a.firebaseapp.com",
+    databaseURL: "https://bloc-chat-7821a.firebaseio.com",
+    projectId: "bloc-chat-7821a",
+    storageBucket: "bloc-chat-7821a.appspot.com",
+    messagingSenderId: "814779148264"
+  };
+  firebase.initializeApp(config);
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <RoomList firebase={firebase}/>
       </div>
     );
   }
