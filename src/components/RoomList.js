@@ -6,10 +6,14 @@ class RoomList extends Component{
         super(props);
 
         this.state = {
-            rooms: []
+            rooms: [],
+            newRoomName: "testRoom"
         };
 
         this.roomsRef = this.props.firebase.database().ref('rooms');
+
+
+
     }
 
     componentDidMount() {
@@ -21,35 +25,33 @@ class RoomList extends Component{
         });
     }
 
-    render() {
+    createRoom() {
+        const newRoomName = this.state.rooms
         return (
-            <table>
-                <tbody>
-                    {this.state.rooms.map( (room, index) => 
-                        <tr key={index}>
-                            <td>{room.name}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+            this.roomsRef.push({name: newRoomName})
         );
     }
-     //how come a table renders but not divs as below?
 
-    // render() {
-    //    return(
-    //        <div>
-    //             {this.state.rooms.map(
-    //                 (room, index) => {
-    //                     <div key={index}>
-    //                         <h1>{room.name}</h1>
-    //                     </div>
-    //                 }
-    //             )}
+    render() {
+        return (
+            <section>
+                <ul>
+                    {this.state.rooms.map( (room, index) => 
+                        <li key={index}>
+                            <p>{room.name}</p>
+                        </li>
+                    )}
+                </ul>
+                <form>
+                    <label>New Room Name:
+                        <input type="text" name="name" />
+                    </label>
+                    <input type="submit" value="Add Room"/>
+                </form>
+            </section>
+        );
+    }
 
-    //        </div>
-    //    );
-    // }
 }
 
 export default RoomList;
