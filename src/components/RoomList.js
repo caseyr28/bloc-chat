@@ -7,13 +7,12 @@ class RoomList extends Component{
 
         this.state = {
             rooms: [],
-            newRoomName: "testRoom"
+            newRoomName: ""
         };
 
         this.roomsRef = this.props.firebase.database().ref('rooms');
-
-
-
+        this.handleTextChange = this.handleTextChange.bind(this); //I dont follow this
+        this.createRoom = this.createRoom.bind(this);
     }
 
     componentDidMount() {
@@ -25,11 +24,15 @@ class RoomList extends Component{
         });
     }
 
+    //assign whatever is typed into the field as the new Room Name
+    ///why does this work when I bind it above
+    handleTextChange(e) {
+        this.setState({newRoomName: e.target.value});
+      }
+
+    //push the new room name to database
     createRoom() {
-        const newRoomName = this.state.rooms
-        return (
-            this.roomsRef.push({name: newRoomName})
-        );
+        this.roomsRef.push({name: this.state.newRoomName })
     }
 
     render() {
@@ -44,14 +47,15 @@ class RoomList extends Component{
                 </ul>
                 <form>
                     <label>New Room Name:
-                        <input type="text" name="name" />
+                        <input type="text" name="name" value={this.state.newRoomName} onChange={this.handleTextChange} />
                     </label>
-                    <input type="submit" value="Add Room"/>
+
+                    <input type="submit" value="Add Room" onClick={this.createRoom} />
                 </form>
             </section>
         );
     }
 
-}
+}             
 
 export default RoomList;
