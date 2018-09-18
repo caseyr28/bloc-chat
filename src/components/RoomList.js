@@ -7,13 +7,17 @@ class RoomList extends Component{
 
         this.state = {
             rooms: [],
-            newRoomName: ""
+            newRoomName: "",
+
+
         };
 
         this.roomsRef = this.props.firebase.database().ref('rooms');
-        this.handleTextChange = this.handleTextChange.bind(this); //I dont follow this
+        this.handleTextChange = this.handleTextChange.bind(this); 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    
 
     componentDidMount() {
         this.roomsRef.on('child_added', snapshot => {
@@ -25,7 +29,6 @@ class RoomList extends Component{
     }
 
     //assign whatever is typed into the field as the new Room Name
-    ///why does this work when I bind it above
     handleTextChange(e) {
         e.preventDefault();
         this.setState({newRoomName: e.target.value});
@@ -41,23 +44,17 @@ class RoomList extends Component{
         this.roomsRef.push({name: this.state.newRoomName })
     }
 
+
     render() {
         return (
             <section>
                 <ul>
                     {this.state.rooms.map( (room, index) => 
                         <li key={index}>
-                            <p>{room.name}</p>
+                            <button onClick = {this.props.onRoomSelect} ><p>{room.name}</p></button>
                         </li>
                     )}
                 </ul>
-                {/* <form>
-                    <label>New Room Name:
-                        <input type="text" name="name" value={this.state.newRoomName} onChange={this.handleTextChange} />
-                    </label>
-
-                    <input type="submit" value="Add Room" onClick={this.createRoom} />
-                </form> */}
                 <form onSubmit={ (e) => this.handleSubmit(e) }>
                 <label>Create a new room:
                 <input type="text" value={ this.state.newRoomName } onChange={ (e) => this.handleTextChange(e) } />
