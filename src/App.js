@@ -30,11 +30,9 @@ class App extends Component {
   onRoomSelect(room) {
     this.setState({
         activeRoom: room
+      }, () => console.log(this.state.activeRoom));
 
-    })
-    console.log(this.activeRoom);
-
-
+      console.log(this.state.activeRoom);
   }
 
 
