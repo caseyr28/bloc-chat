@@ -21,26 +21,26 @@ class App extends Component {
     super(props);
 
     this.state = {
-      activeRoom: ''
+      activeRoom: '',
+      roomMessages: ''
     }
     
   }
 
   //update the active room when selected
-  onRoomSelect(room) {
+  setRoom(room) {
     this.setState({
         activeRoom: room
       }, () => console.log(this.state.activeRoom));
 
-      console.log(this.state.activeRoom);
+      //console.log(this.state.activeRoom);
   }
-
-
+  
   render() {
     return (
       <div>
-        <RoomList firebase={firebase}  onRoomSelect = {(room) => this.onRoomSelect(room) } activeRoom={this.state.activeRoom}/>
-        <MessageList />
+        <RoomList firebase={firebase}  setRoom = {this.setRoom.bind(this)} activeRoom={this.state.activeRoom}/>
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
       </div>
     );
   }

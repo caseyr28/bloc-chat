@@ -51,7 +51,7 @@ class RoomList extends Component{
                 <ul>
                     {this.state.rooms.map( (room, index) => 
                         <li key={index}>
-                            <button onClick = {this.props.onRoomSelect} ><p>{room.name}</p></button>
+                            <button onClick = {() => this.props.setRoom(room)} ><p>{room.name}</p></button>
                         </li>
                     )}
                 </ul>
