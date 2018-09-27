@@ -9,19 +9,16 @@ class MessageList extends Component {
             username: "",
             content: "",
             sentAt: "",
-            roomId: "-LMFcYQfAG3PhIZqSKy-"
+            roomId: ""
         }
 
        this.messageRef = this.props.firebase.database().ref('messageList');
-       console.log(this.messageRef);
     }
 
     componentDidMount() {
         this.messageRef.on('child_added', snapshot => {
-            const roomMessages = this.state.messages.filter(message => message.roomId !== this.props.activeRoom.key);
             const message = snapshot.val();
             message.key = snapshot.key;
-            console.log(snapshot);
             this.setState({ messages: this.state.messages.concat( message ) });
 
         });
