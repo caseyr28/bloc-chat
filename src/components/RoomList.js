@@ -34,7 +34,6 @@ class RoomList extends Component{
 
     //push the new room name to database
     handleSubmit(e) {
-        console.log(this);
         e.preventDefault();
         if (!this.state.newRoomName) { return } 
         const newRoom = { description: this.state.newRoomName, isCompleted: false };
@@ -57,10 +56,8 @@ class RoomList extends Component{
                     )}
                 </ul>
                 <form onSubmit={ (e) => this.handleSubmit(e) }>
-                <label>Create a new room:
-                <input type="text" value={ this.state.newRoomName } onChange={ (e) => this.handleTextChange(e) } />
-                </label>
-                <input type="submit" value="Add Room"/>
+                <input type="text" value={ this.state.newRoomName } onChange={ (e) => this.handleTextChange(e) } className="inputField"/>
+                <input type="submit" value="Add Room" className="submit-btn"/>
                 </form>
        
             </section>

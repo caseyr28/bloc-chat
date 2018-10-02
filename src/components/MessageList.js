@@ -18,13 +18,14 @@ class MessageList extends Component {
 
     componentDidMount() {
         this.messageRef.on('child_added', snapshot => {
+
             const message = snapshot.val();
             message.key = snapshot.key;
             this.setState({ messages: this.state.messages.concat( message ) });
         });
     }
 
-    //assign the text im the message field as the message
+    //assign the text in the message field as the message
     handleMessageChange(e) {
         e.preventDefault();
         this.setState({ newMessage: e.target.value });
@@ -32,20 +33,18 @@ class MessageList extends Component {
     
     //push the new message to the correct room
     createNewMessage(e) {
-        console.log(this);
+
         e.preventDefault();
         if (!this.state.newMessage) { return } 
-        const newMessage = { 
-            content: this.state.newMessage,
-            username: this.props.displayName,
-            roomId: this.props.activeRoom
+            console.log(this)
+            this.messageRef.push({
+                content: this.state.newMessage,
+                roomId: this.props.activeRoom.key,
+                sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+                username: ''
 
-         };
-        this.setState({ messages: [...this.state.messages, newMessage] });
-
-        this.messagesRef.push({
-            content: this.state.newMessage
         })
+        this.setState({ newMessage: '' })
     }
 
 
@@ -65,9 +64,9 @@ class MessageList extends Component {
                         </li>
                     )}
                 </ul>
-                <form onSubmit={ (e) => this.createNewMessage(e) } >
-                    <input type="text" value={ this.state.newMessage } onChange={ (e) => this.handleMessageChange(e) } placeholder="Type your message..."/>
-                    <input type="submit" value="Send"/>
+                <form onSubmit={ (e) => this.createNewMessage(e) } className="messageForm">
+                    <input type="text" value={ this.state.newMessage } onChange={ (e) => this.handleMessageChange(e) } placeholder="Type your message..." className="inputField"/>
+                    <input type="submit" value="Send" className="submit-btn"/>
                 </form>       
 
             </section>
