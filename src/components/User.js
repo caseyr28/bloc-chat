@@ -23,10 +23,11 @@ class User extends Component {
     render() {
         return(
             <header>
-                <button onClick = {(e) => this.handleSignIn(e) }><p>Sign In</p></button>
-                <button onClick = {(e) => this.handleSignOut(e)}><p>Sign Out</p></button>
                 <p>{this.props.displayName }</p>
-                
+                <div className="login-buttons">
+                    <button onClick = {(e) => this.handleSignIn(e) }><p>Sign In</p></button>
+                    <button onClick = {(e) => this.handleSignOut(e)}><p>Sign Out</p></button>
+                </div>
             </header>
 
         );

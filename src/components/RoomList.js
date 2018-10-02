@@ -7,9 +7,7 @@ class RoomList extends Component{
 
         this.state = {
             rooms: [],
-            newRoomName: "",
-
-
+            newRoomName: ""
         };
 
         this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -36,6 +34,7 @@ class RoomList extends Component{
 
     //push the new room name to database
     handleSubmit(e) {
+        console.log(this);
         e.preventDefault();
         if (!this.state.newRoomName) { return } 
         const newRoom = { description: this.state.newRoomName, isCompleted: false };
@@ -45,9 +44,11 @@ class RoomList extends Component{
     }
 
 
+    //use an ES6 arrow function on the Onclick event. this prevents state re-evaluating and creating an infinite loop. Not sure why.
     render() {
         return (
-            <section>
+            <section className="roomlist">
+                <h1>{this.props.activeRoom.name ? this.props.activeRoom.name : "Select a Room"}</h1>
                 <ul>
                     {this.state.rooms.map( (room, index) => 
                         <li key={index}>
@@ -61,7 +62,7 @@ class RoomList extends Component{
                 </label>
                 <input type="submit" value="Add Room"/>
                 </form>
-                        
+       
             </section>
         );
     }

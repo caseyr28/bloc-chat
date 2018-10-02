@@ -24,7 +24,8 @@ class App extends Component {
     this.state = {
       activeRoom: '',
       roomMessages: '',
-      displayName: ''
+      displayName: '',
+      username: ''
   
     }
     
@@ -39,20 +40,22 @@ class App extends Component {
 
   //set the current logged in user
   setUser(user) {
-    console.log(user)
+
     this.setState({
       displayName: user ? user.displayName : 'Guest'
     })
   }
+
   
   render() {
 
     return (
-      <div>
-        <RoomList firebase={firebase}  setRoom = {this.setRoom.bind(this)} activeRoom={this.state.activeRoom}/>
-        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
+      <section className="container">
         <User firebase={firebase} setUser = {this.setUser.bind(this)} displayName = {this.state.displayName} />
-      </div>
+        <RoomList firebase={firebase}  setRoom = {this.setRoom.bind(this)} activeRoom={this.state.activeRoom} messageList={this.state.messageList} />
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
+
+      </section>
     );
   }
 }
