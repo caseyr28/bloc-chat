@@ -23,6 +23,7 @@ class User extends Component {
     render() {
         return(
             <header>
+                <h1>Bloc Chat</h1>
                 <p>{this.props.displayName }</p>
                 <div className="login-buttons">
                     <button onClick = {(e) => this.handleSignIn(e) }><p>Sign In</p></button>

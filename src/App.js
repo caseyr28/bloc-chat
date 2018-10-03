@@ -31,6 +31,7 @@ class App extends Component {
     
   }
 
+
   //update the active room when selected
   setRoom(room) {
     this.setState({
@@ -51,9 +52,10 @@ class App extends Component {
 
     return (
       <section className="container">
+
         <User firebase={firebase} setUser = {this.setUser.bind(this)} displayName = {this.state.displayName} />
-        <RoomList firebase={firebase}  setRoom = {this.setRoom.bind(this)} activeRoom={this.state.activeRoom} messageList={this.state.messageList} />
-        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
+        <RoomList firebase={firebase}  setRoom = {this.setRoom.bind(this)} activeRoom={this.state.activeRoom} messageList={this.state.messageList}  />
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} displayName = {this.state.displayName} />
 
       </section>
     );

@@ -47,7 +47,6 @@ class RoomList extends Component{
     render() {
         return (
             <section className="roomlist">
-                <h1>{this.props.activeRoom.name ? this.props.activeRoom.name : "Select a Room"}</h1>
                 <ul>
                     {this.state.rooms.map( (room, index) => 
                         <li key={index}>

@@ -33,18 +33,20 @@ class MessageList extends Component {
     
     //push the new message to the correct room
     createNewMessage(e) {
-
         e.preventDefault();
-        if (!this.state.newMessage) { return } 
-            console.log(this)
+
+        if (this.state.newMessage !== '' && this.props.activeRoom !== '') { 
             this.messageRef.push({
                 content: this.state.newMessage,
                 roomId: this.props.activeRoom.key,
                 sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-                username: ''
+                username: this.props.displayName
+            })
+        }
 
-        })
+
         this.setState({ newMessage: '' })
+        console.log(this.props.activeRoom);
     }
 
 
@@ -54,13 +56,14 @@ class MessageList extends Component {
     render() {
         return (
             <section className="messagelist">
+            <h2> {this.props.activeRoom.name} </h2>
                 <ul>
                    {this.state.messages.filter(message => message.roomId === this.props.activeRoom.key).map ( (message, index) => 
                         <li key={index}>
+
                             <h5>{message.username}</h5>
                             <p>{message.content}</p>
                             <h6>{message.sentAt}</h6>
-                            <h6>{message.roomId}</h6>
                         </li>
                     )}
                 </ul>
